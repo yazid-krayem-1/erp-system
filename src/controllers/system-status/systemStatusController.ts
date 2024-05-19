@@ -80,10 +80,10 @@ export default class SystemStatusController extends BaseController {
 				},
 				currentUser: os.userInfo(),
 			};
-			res.locals.data = response;
+			const data = response;
 			// call base class method
 			const msg = req.t('systemStatus:processInfo');
-			super.send(msg, res);
+			super.send({ message: msg, res, data });
 		} catch (err) {
 			next(err);
 		}
@@ -124,10 +124,10 @@ export default class SystemStatusController extends BaseController {
 				utc,
 				date: now,
 			};
-			res.locals.data = time;
+			const data = time;
 			const msg = req.t('systemStatus:processInfo');
 
-			super.send(msg, res);
+			super.send({ message: msg, res, data });
 		} catch (error) {
 			next(error);
 		}
@@ -160,10 +160,10 @@ export default class SystemStatusController extends BaseController {
 				systemCpu: os.cpus(),
 			};
 
-			res.locals.data = response;
+			const data = response;
 			const msg = req.t('systemStatus:processInfo');
 
-			super.send(msg, res);
+			super.send({ message: msg, res, data });
 		} catch (err) {
 			next(err);
 		}
@@ -191,9 +191,9 @@ export default class SystemStatusController extends BaseController {
 				applicationVersion: process.version,
 				nodeDependencyVersions: process.versions,
 			};
-			res.locals.data = response;
+			const data: IProcessInfoResponse = response;
 			const msg = req.t('systemStatus:processInfo');
-			super.send(msg, res);
+			super.send({ message: msg, res, data });
 		} catch (err) {
 			next(err);
 		}

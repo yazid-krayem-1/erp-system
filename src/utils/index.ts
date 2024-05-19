@@ -1,7 +1,7 @@
 import { envConfig } from '../config';
 import Crypto from '../lib/crypto';
 
-function getEncryptedText<T>(input: T): T | string {
+function getEncryptedText<T>(input: T): T {
 	const APPLY_ENCRYPTION = envConfig.APPLY_ENCRYPTION === 'true';
 	const { SECRET_KEY } = envConfig;
 
@@ -10,7 +10,7 @@ function getEncryptedText<T>(input: T): T | string {
 		// Convert input to JSON string if it's not already a string
 		const output =
 			typeof input === 'string' ? input : JSON.stringify(input);
-		return Crypto.encrypt(output, SECRET_KEY);
+		return Crypto.encrypt(output, SECRET_KEY) as T; // Add type assertion
 	}
 
 	return input;

@@ -1,3 +1,4 @@
+import addErrorHandler from '../../middleware/error-handler';
 import { RouteDefinition } from '../../types/RouteDefinition';
 import BaseController from '../BaseController';
 
@@ -35,7 +36,12 @@ export default class UserController extends BaseController {
 	}
 
 	public async getUsers(req: any, res: any): Promise<void> {
-		res.json({ message: 'getUsers' });
+		try {
+			const data = { message: 'getUsers' };
+			super.send({ message: 'getUsers', res, data });
+		} catch (err) {
+			res.status(500).json({ message: err.message });
+		}
 	}
 
 	public async getUserById(req: any, res: any): Promise<void> {
